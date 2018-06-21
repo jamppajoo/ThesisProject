@@ -1,0 +1,119 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(Camera))]
+
+public class MultipleCameraTarget : MonoBehaviour
+{
+
+    public List<Transform> targets;
+
+    public Vector3 offset;
+
+    public float smoothTime = 0.5f;
+    private Vector3 velocity;
+
+    public float minZoom = 40f;
+
+    public float maxZoom = 10f;
+
+    public float zoomLimiter = 50f;
+
+    public float distanceToDropLastPlayer = 45f;
+    private Camera mainCam;
+    private LevelManager levelManager;
+
+    private void Start()
+    {
+        mainCam = GetComponent<Camera>();
+        levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+    }
+    private void LateUpdate()
+    {
+        if (targets.Count == 0)
+            return;
+        Move();
+        Zoom();
+        if (GetGreatestDistance() > distanceToDropLastPlayer)
+        {
+            DropLastPlayer();
+        }
+    }
+    private void Move()
+    {
+
+        Vector3 centerPoint = GetCenterPoint();
+
+        Vector3 newPosition = centerPoint + offset;
+
+        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+    }
+    private void Zoom()
+    {
+        float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance() / zoomLimiter);
+        mainCam.fieldOfView = Mathf.Lerp(mainCam.fieldOfView, newZoom, Time.deltaTime);
+    }
+    private void DropLastPlayer()
+    {
+        RemoveTarget(GetLastPlayer());
+        if (targets.Count == 1)
+            levelManager.Winner(targets[0].gameObject);
+    }
+    private float GetGreatestDistance()
+    {
+        var bounds = new Bounds(targets[0].position, Vector3.zero);
+        for (int i = 0; i < targets.Count; i++)
+        {
+            bounds.Encapsulate(targets[i].position);
+        }
+        return bounds.size.x;
+    }
+    private Vector3 GetCenterPoint()
+    {
+        if (targets.Count == 1)
+        {
+            return targets[0].position;
+        }
+
+        var bounds = new Bounds(targets[0].position, Vector3.zero);
+        for (int i = 0; i < targets.Count; i++)
+        {
+            bounds.Encapsulate(targets[i].position);
+
+        }
+        return bounds.center;
+    }
+    private Vector3 GetLeadingPlayer()
+    {
+        Vector3 leadingPosition = Vector3.zero;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            if (targets[i].position.x > leadingPosition.x)
+            {
+                leadingPosition = targets[i].position;
+            }
+        }
+        return leadingPosition;
+    }
+
+    private Transform GetLastPlayer()
+    {
+        Vector3 lastPosition = GetLeadingPlayer();
+        Transform lastPlayer = null;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            if (targets[i].position.x < lastPosition.x)
+            {
+                lastPosition = targets[i].position;
+                lastPlayer = targets[i];
+            }
+        }
+        return lastPlayer;
+    }
+    public void RemoveTarget(Transform target)
+    {
+        targets.Remove(target);
+        Destroy(target.gameObject);
+    }
+}
