@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace UnityStandardAssets.Vehicles.Ball
 {
+    [RequireComponent(typeof(BallUserControl))]
     public class Ball : MonoBehaviour
     {
         public string playerID;
 
         [SerializeField] private float m_MovePower = 5; // The force added to the ball to move it.
-        [SerializeField] private bool m_UseTorque = true; // Whether or not to use torque to move the ball.
         public float m_MaxAngularVelocity = 25; // The maximum velocity the ball can rotate at.
         public float m_NormalAngularVelocity = 25; // The maximum velocity the ball can rotate at.
         public float m_BoostedAngularVelocity = 25; // The maximum velocity the ball can rotate at.
@@ -17,14 +17,12 @@ namespace UnityStandardAssets.Vehicles.Ball
         [SerializeField] private float m_JumpPower = 2; // The force added to the ball when it jumps.
 
         private const float k_GroundRayLength = 1f; // The length of the ray to check if the ball is grounded.
-        private Rigidbody m_Rigidbody;
+        private Rigidbody2D m_Rigidbody;
 
 
         private void Start()
         {
-            m_Rigidbody = GetComponent<Rigidbody>();
-            // Set the maximum angular velocity.
-            changeAngularVelocity();
+            m_Rigidbody = GetComponent<Rigidbody2D>();
         }
         private void Awake()
         {
@@ -32,32 +30,20 @@ namespace UnityStandardAssets.Vehicles.Ball
         }
 
 
-        public void Move(Vector3 moveDirection, bool jump)
+        public void Move(Vector2 moveDirection, bool jump)
         {
-            // If using torque to rotate the ball...
-            if (m_UseTorque)
-            {
-                // ... add torque around the axis defined by the move direction.
-                m_Rigidbody.AddTorque(new Vector3(moveDirection.z, 0, -moveDirection.x)*m_MovePower);
-            }
-            else
-            {
-                // Otherwise add force in the move direction.
-                m_Rigidbody.AddForce(moveDirection*m_MovePower);
-            }
+            float torgue = moveDirection.x * -1 * m_MovePower;
+            
+            if ((m_Rigidbody.angularVelocity < m_MaxAngularVelocity && torgue > 0) 
+                || (m_Rigidbody.angularVelocity > -m_MaxAngularVelocity && torgue < 0))
+                    m_Rigidbody.AddTorque(torgue);
+            
 
-            // If on the ground and jump is pressed...
-            if (Physics.Raycast(transform.position, -Vector3.up, k_GroundRayLength) && jump)
+            if (Physics2D.Raycast(transform.position, -Vector2.up, k_GroundRayLength) && jump )
             {
-                // ... add force in upwards.
-                m_Rigidbody.AddForce(Vector3.up*m_JumpPower, ForceMode.Impulse);
+                m_Rigidbody.AddForce(Vector2.up * m_JumpPower, ForceMode2D.Impulse);
             }
         }
 
-        public void changeAngularVelocity()
-        {
-
-            GetComponent<Rigidbody>().maxAngularVelocity = m_MaxAngularVelocity;
-        }
     }
 }

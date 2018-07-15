@@ -40,7 +40,6 @@ public class BallSpeedBoost : MonoBehaviour {
         }
         else
             ball.m_MaxAngularVelocity = ball.m_NormalAngularVelocity;
-        ball.changeAngularVelocity();
 
 
         speedBoostSlider.value = speedBoostAmount;
