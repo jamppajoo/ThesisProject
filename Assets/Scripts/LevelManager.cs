@@ -5,6 +5,9 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public int playerAmount = 1;
+
+    public Color colorRed, colorGreen, colorYellow, colorBlue;
+
     private GameObject player1, player2, player3, player4;
     private LevelUIManger levelUIManger;
 
@@ -29,24 +32,24 @@ public class LevelManager : MonoBehaviour
         player3 = GameObject.Find("Player3");
         player4 = GameObject.Find("Player4");
 
-        player1.SetActive(false);
-        player2.SetActive(false);
-        player3.SetActive(false);
-        player4.SetActive(false);
+        //player1.SetActive(false);
+        //player2.SetActive(false);
+        //player3.SetActive(false);
+        //player4.SetActive(false);
 
-        if (amount >= 2)
-        {
-            player1.SetActive(true);
-            player2.SetActive(true);
-            if (amount >= 3)
-            {
-                player3.SetActive(true);
-                if (amount >= 4)
-                {
-                    player4.SetActive(true);
-                }
-            }
-        }
+        //if (amount >= 2)
+        //{
+        //    player1.SetActive(true);
+        //    player2.SetActive(true);
+        //    if (amount >= 3)
+        //    {
+        //        player3.SetActive(true);
+        //        if (amount >= 4)
+        //        {
+        //            player4.SetActive(true);
+        //        }
+        //    }
+        //}
 
     }
 

@@ -15,10 +15,10 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
-  - 
-  - 
+  - RedObject
+  - GreenObject
+  - YellowObject
+  - BlueObject
   - 
   - 
   - 

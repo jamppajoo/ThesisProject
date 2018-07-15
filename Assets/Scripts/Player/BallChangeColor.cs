@@ -7,6 +7,8 @@ using UnityStandardAssets.Vehicles.Ball;
 public class BallChangeColor : MonoBehaviour
 {
 
+    private LevelManager levelManager;
+
     private string playerID;
 
     private Material playerMaterial;
@@ -20,6 +22,7 @@ public class BallChangeColor : MonoBehaviour
     private GameObject rightStickPlace, rightStickArea;
     void Start()
     {
+        levelManager = FindObjectOfType<LevelManager>();
         playerID = GetComponent<Ball>().playerID;
 
         ballSpeedBoost = GetComponent<BallSpeedBoost>();
@@ -27,7 +30,7 @@ public class BallChangeColor : MonoBehaviour
         playerMaterial = gameObject.GetComponent<Renderer>().material;
         rightStickPlace = GameObject.Find("RightStickPlace" + playerID);
         rightStickArea = GameObject.Find("RightStickArea" + playerID);
-        rightStickOriginalPosition = rightStickPlace.transform.localPosition;   
+        rightStickOriginalPosition = rightStickPlace.transform.localPosition;
 
         rightStickArea.SetActive(true);
     }
@@ -38,19 +41,19 @@ public class BallChangeColor : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            redChoosed();
+            RedChoosed();
         }
         else if (Input.GetKeyDown(KeyCode.I))
         {
-            greenChoosed();
+            GreenChoosed();
         }
         else if (Input.GetKeyDown(KeyCode.O))
         {
-            yellowChoosed();
+            YellowChoosed();
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
-            pinkChoosed();
+            BlueChoosed();
         }
 
 
@@ -67,56 +70,53 @@ public class BallChangeColor : MonoBehaviour
 
             if (rightStickVerticalPosition > rightStickHorizontalPosition && rightStickVerticalPosition > rightStickHorizontalPosition * -1)
             {
-                redChoosed();
+                RedChoosed();
             }
             else if (rightStickVerticalPosition < rightStickHorizontalPosition && rightStickVerticalPosition < rightStickHorizontalPosition * -1)
             {
-                yellowChoosed();
+                YellowChoosed();
             }
             else if (rightStickHorizontalPosition > rightStickVerticalPosition && rightStickHorizontalPosition > rightStickVerticalPosition * -1)
             {
-                pinkChoosed();
+                BlueChoosed();
             }
             else if (rightStickHorizontalPosition < rightStickVerticalPosition && rightStickHorizontalPosition < rightStickVerticalPosition * -1)
             {
-                greenChoosed();
+                GreenChoosed();
             }
-
-
-
-
-
+            
         }
         else
             rightStickArea.SetActive(false);
+
         rightStickPlace.transform.localPosition = new Vector3(rightStickOriginalPosition.x + rightStickHorizontalPosition * -1, rightStickOriginalPosition.y + rightStickVerticalPosition, rightStickOriginalPosition.z);
 
 
     }
 
 
-    void redChoosed()
+    void RedChoosed()
     {
-        playerMaterial.color = Color.red;
-        ballSpeedBoost.changeBarColor(Color.red);
+        playerMaterial.color = levelManager.colorRed;
+        ballSpeedBoost.changeBarColor(levelManager.colorRed);
         gameObject.layer = LayerMask.NameToLayer("RedObject");
     }
-    void greenChoosed()
+    void GreenChoosed()
     {
-        playerMaterial.color = Color.green;
-        ballSpeedBoost.changeBarColor(Color.green);
+        playerMaterial.color = levelManager.colorGreen;
+        ballSpeedBoost.changeBarColor(levelManager.colorGreen);
         gameObject.layer = LayerMask.NameToLayer("GreenObject");
     }
-    void yellowChoosed()
+    void YellowChoosed()
     {
-        playerMaterial.color = Color.yellow;
-        ballSpeedBoost.changeBarColor(Color.yellow);
+        playerMaterial.color = levelManager.colorYellow;
+        ballSpeedBoost.changeBarColor(levelManager.colorYellow);
         gameObject.layer = LayerMask.NameToLayer("YellowObject");
     }
-    void pinkChoosed()
+    void BlueChoosed()
     {
-        playerMaterial.color = new Color(255, 0, 216);
-        ballSpeedBoost.changeBarColor(new Color(255, 0, 216));
-        gameObject.layer = LayerMask.NameToLayer("PinkObject");
+        playerMaterial.color = levelManager.colorBlue;
+        ballSpeedBoost.changeBarColor(levelManager.colorBlue);
+        gameObject.layer = LayerMask.NameToLayer("BlueObject");
     }
 }
