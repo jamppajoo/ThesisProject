@@ -79,9 +79,8 @@ public class PlayerChangeInfo : MonoBehaviour
             }
         }
 
-
-
         myPlayerImageSlot.sprite = playerImages[myCurrentImageIndex];
+        SetMyInfo();
     }
 
     public void SetMyPlayerID(string playerID)
@@ -89,8 +88,10 @@ public class PlayerChangeInfo : MonoBehaviour
         myPlayerID = playerID;
     }
 
-    private void SetMyImage()
+    private void SetMyInfo()
     {
+        myCurrentPlayerSprite = myPlayerImageSlot.sprite;
+        myCurrentPlayerName = myPlayerNameSlot.text;
         gameObject.GetComponentInParent<PlayerJoinTheGameController>().SetMyPlayerInfo(myCurrentPlayerSprite, myCurrentPlayerName);
     }
 }
