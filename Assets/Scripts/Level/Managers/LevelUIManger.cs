@@ -7,19 +7,28 @@ using UnityStandardAssets.Vehicles.Ball;
 
 public class LevelUIManger : MonoBehaviour {
 
-    private GameObject pauseMenu, winnerMenu;
+    PauseMenuManager pauseMenuManager;
     private bool pauseMenuShowing = false;
+    private int playerAmount;
+
+    private GameObject pauseMenu, winnerMenu;
+    private GameObject p1UIElements, p2UIElements, p3UIElements, p4UIElements;
+
+    
     private Button pauseMenuContinueButton, pauseMenuBackToMenuButton, pauseMenuRestartButton;
     private Button winnerMenuContinueButton, winnerMenuRestartButton;
-    private GameObject p1UIElements, p2UIElements, p3UIElements, p4UIElements;
-    private int playerAmount;
+    
     private Text PlayerNameP1, PlayerNameP2, PlayerNameP3, PlayerNameP4;
+    private Text winnerNameText, winningTimeText;
+
     private Vector3 pauseMenuOriginalPosition, winnerMenuOriginalPosition;
 
-    private Text winnerNameText, winningTimeText;
     
     void Start()
     {
+        pauseMenuManager = FindObjectOfType<PauseMenuManager>();
+
+
         FindStuff();
         if (playerAmount >= 2)
         {
@@ -38,13 +47,7 @@ public class LevelUIManger : MonoBehaviour {
 
         pauseMenuOriginalPosition = pauseMenu.transform.position;
         winnerMenuOriginalPosition = winnerMenu.transform.position;
-
-        pauseMenuContinueButton.onClick.AddListener(delegate { ContinueButtonPressed(); });
-        pauseMenuBackToMenuButton.onClick.AddListener(BackToMenuButtonPressed);
-        pauseMenuRestartButton.onClick.AddListener(RestartLevel);
-
-        winnerMenuContinueButton.onClick.AddListener(BackToMenuButtonPressed);
-        winnerMenuRestartButton.onClick.AddListener(RestartLevel);
+        
     }
     private void FindStuff()
     {
@@ -86,10 +89,7 @@ public class LevelUIManger : MonoBehaviour {
     {
         if(Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("joystick 2 button 7") || Input.GetKeyDown("joystick 3 button 7") || Input.GetKeyDown("joystick 4 button 7")  || Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!pauseMenuShowing)
-                ShowPauseMenu();
-            else
-                HidePauseMenu();
+            pauseMenuManager.ToggleMenu();
         }
     }
     public void ShowWinnerMenu(GameObject winner, float winTime)
@@ -99,33 +99,7 @@ public class LevelUIManger : MonoBehaviour {
         winningTimeText.text = winningTimeText.text + winTime.ToString("F2");
         winnerMenu.GetComponent<RectTransform>().localPosition = Vector3.zero;
     }
-
-    private void ShowPauseMenu()
-    {
-        pauseMenu.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        pauseMenuShowing = true;
-        Time.timeScale = 0;
-    }
-    private void HidePauseMenu()
-    {
-        pauseMenu.transform.position = pauseMenuOriginalPosition;
-        pauseMenuShowing = false;
-        Time.timeScale = 1;
-    }
     
-    private void ContinueButtonPressed()
-    {
-        HidePauseMenu();
-    }
-   private void BackToMenuButtonPressed()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("MainMenu");
-    }
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     
 }

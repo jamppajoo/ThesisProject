@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     {
         playerAmount = GameManager.sharedGM.playerCount;
         FindPlayers(playerAmount);
-        levelUIManger = GameObject.Find("Canvas").GetComponent<LevelUIManger>();
+        //levelUIManger = GameObject.Find("Canvas").GetComponent<LevelUIManger>();
     }
     private void Update()
     {
@@ -56,7 +56,7 @@ public class LevelManager : MonoBehaviour
     public void Winner(GameObject winner)
     {
         winnerFound = true;
-        levelUIManger.ShowWinnerMenu(winner.gameObject, timeEplased);
+        //levelUIManger.ShowWinnerMenu(winner.gameObject, timeEplased);
     }
     public void playerKilled(GameObject player)
     {
