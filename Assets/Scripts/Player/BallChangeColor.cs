@@ -9,17 +9,17 @@ public class BallChangeColor : MonoBehaviour
 
     private LevelManager levelManager;
 
+    private PlayerUIManager playerUIManager;
+
     private string playerID;
 
     private Material playerMaterial;
     private bool jump;
-    private Vector3 rightStickOriginalPosition;
 
     private float deadZoneValue = 1f;
 
     private BallSpeedBoost ballSpeedBoost;
-
-    private GameObject rightStickPlace, rightStickArea;
+    
     void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
@@ -28,11 +28,7 @@ public class BallChangeColor : MonoBehaviour
         ballSpeedBoost = GetComponent<BallSpeedBoost>();
 
         playerMaterial = gameObject.GetComponent<Renderer>().material;
-        rightStickPlace = GameObject.Find("RightStickPlace" + playerID);
-        rightStickArea = GameObject.Find("RightStickArea" + playerID);
-        rightStickOriginalPosition = rightStickPlace.transform.localPosition;
-
-        rightStickArea.SetActive(true);
+        playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>() ;
     }
 
 
@@ -66,7 +62,7 @@ public class BallChangeColor : MonoBehaviour
 
         if (Mathf.Abs(rightStickHorizontalPosition) > deadZoneValue || Mathf.Abs(rightStickVerticalPosition) > deadZoneValue)
         {
-            rightStickArea.SetActive(true);
+            playerUIManager.DisplayColorSelector(true);
 
             if (rightStickVerticalPosition > rightStickHorizontalPosition && rightStickVerticalPosition > rightStickHorizontalPosition * -1)
             {
@@ -78,18 +74,18 @@ public class BallChangeColor : MonoBehaviour
             }
             else if (rightStickHorizontalPosition > rightStickVerticalPosition && rightStickHorizontalPosition > rightStickVerticalPosition * -1)
             {
-                BlueChoosed();
+                GreenChoosed();
             }
             else if (rightStickHorizontalPosition < rightStickVerticalPosition && rightStickHorizontalPosition < rightStickVerticalPosition * -1)
             {
-                GreenChoosed();
+                BlueChoosed();
             }
             
         }
         else
-            rightStickArea.SetActive(false);
+            playerUIManager.DisplayColorSelector(false);
 
-        rightStickPlace.transform.localPosition = new Vector3(rightStickOriginalPosition.x + rightStickHorizontalPosition * -1, rightStickOriginalPosition.y + rightStickVerticalPosition, rightStickOriginalPosition.z);
+        playerUIManager.MoveColorSelector(new Vector3(rightStickHorizontalPosition * -1, rightStickVerticalPosition, 0));
 
 
     }

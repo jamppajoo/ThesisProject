@@ -11,24 +11,25 @@ public class BallSpeedBoost : MonoBehaviour {
     private string playerID;
 
     private bool speedBoostActivated;
+
+    private PlayerUIManager playerUIManager;
+
     private Image fillBar;
-    private Slider speedBoostSlider;
 
     private Ball ball;
 
     private float speedBoostAmount = 1;
-    // Use this for initialization
+
     void Start () {
 
         playerID = GetComponent<Ball>().playerID;
+        playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>();
 
-        fillBar = GameObject.Find("Fill" + playerID).GetComponent<Image>();
-        speedBoostSlider = GameObject.Find("Slider" + playerID).GetComponent<Slider>();
-        speedBoostSlider.maxValue = maxSpeedBoostAmount;
+        playerUIManager.SetSpeedBoostMaxValue(maxSpeedBoostAmount);
+        
         ball = GetComponent<Ball>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 
         speedBoostActivated = CrossPlatformInputManager.GetButton("Boost_" + playerID);
@@ -41,14 +42,13 @@ public class BallSpeedBoost : MonoBehaviour {
         else
             ball.m_MaxAngularVelocity = ball.m_NormalAngularVelocity;
 
-
-        speedBoostSlider.value = speedBoostAmount;
+        playerUIManager.SetSpeedBoostValue(speedBoostAmount);
 
     }
 
     public void changeBarColor(Color color)
     {
-        fillBar.color = color;
+        playerUIManager.SetSpeedBoostColor(color);
     }
     
 
