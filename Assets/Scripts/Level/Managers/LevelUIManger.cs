@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityStandardAssets.Vehicles.Ball;
 
 public class LevelUIManger : MonoBehaviour {
 

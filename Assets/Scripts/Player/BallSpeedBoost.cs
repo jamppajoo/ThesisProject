@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
-using UnityStandardAssets.Vehicles.Ball;
 
 public class BallSpeedBoost : MonoBehaviour {
 
@@ -17,7 +16,7 @@ public class BallSpeedBoost : MonoBehaviour {
     private Image fillBar;
 
     private Ball ball;
-
+    [SerializeField]
     private float speedBoostAmount = 1;
 
     private void Awake()
@@ -38,10 +37,14 @@ public class BallSpeedBoost : MonoBehaviour {
         if(speedBoostAmount > 0 && speedBoostActivated)
         {
             speedBoostAmount -= Time.deltaTime;
-            ball.m_MaxAngularVelocity = ball.m_BoostedAngularVelocity;
+            ball.currentMaxVelocity = ball.boostedVelocity;
+            ball.torgueMultiplier = ball.boostingTorgueMultiplier;
         }
         else
-            ball.m_MaxAngularVelocity = ball.m_NormalAngularVelocity;
+        {
+            ball.currentMaxVelocity = ball.normalVelocity;
+            ball.torgueMultiplier = ball.normalTorgueMultiplier;
+        }
 
         playerUIManager.SetSpeedBoostValue(speedBoostAmount);
 

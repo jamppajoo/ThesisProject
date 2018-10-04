@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
-using UnityStandardAssets.Vehicles.Ball;
 
+[RequireComponent(typeof(Ball))]
+[RequireComponent(typeof(BallSpeedBoost))]
 public class BallChangeColor : MonoBehaviour
 {
 
@@ -20,12 +21,16 @@ public class BallChangeColor : MonoBehaviour
 
     private BallSpeedBoost ballSpeedBoost;
 
+    private Ball ball;
+
     private void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
         playerID = GetComponent<Ball>().playerID;
 
         ballSpeedBoost = GetComponent<BallSpeedBoost>();
+        ball = GetComponent<Ball>();
+
         playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>();
     }
 
@@ -99,23 +104,27 @@ public class BallChangeColor : MonoBehaviour
         playerMaterial.color = levelManager.colorRed;
         ballSpeedBoost.changeBarColor(levelManager.colorRed);
         gameObject.layer = LayerMask.NameToLayer("RedObject");
+        ball.myLayerMask = gameObject.layer;
     }
     void GreenChoosed()
     {
         playerMaterial.color = levelManager.colorGreen;
         ballSpeedBoost.changeBarColor(levelManager.colorGreen);
         gameObject.layer = LayerMask.NameToLayer("GreenObject");
+        ball.myLayerMask = gameObject.layer;
     }
     void YellowChoosed()
     {
         playerMaterial.color = levelManager.colorYellow;
         ballSpeedBoost.changeBarColor(levelManager.colorYellow);
         gameObject.layer = LayerMask.NameToLayer("YellowObject");
+        ball.myLayerMask = gameObject.layer;
     }
     void BlueChoosed()
     {
         playerMaterial.color = levelManager.colorBlue;
         ballSpeedBoost.changeBarColor(levelManager.colorBlue);
         gameObject.layer = LayerMask.NameToLayer("BlueObject");
+        ball.myLayerMask = gameObject.layer;
     }
 }
