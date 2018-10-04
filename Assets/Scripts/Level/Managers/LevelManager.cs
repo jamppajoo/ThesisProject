@@ -13,12 +13,13 @@ public class LevelManager : MonoBehaviour
 
     private float timeEplased = 0;
     private bool winnerFound = false;
-
+    private void Awake()
+    {
+        FindPlayers(playerAmount);
+    }
     private void Start()
     {
-        playerAmount = GameManager.sharedGM.playerCount;
-        FindPlayers(playerAmount);
-        //levelUIManger = GameObject.Find("Canvas").GetComponent<LevelUIManger>();
+        playerAmount = GameManager.Instance.playerCount;
     }
     private void Update()
     {

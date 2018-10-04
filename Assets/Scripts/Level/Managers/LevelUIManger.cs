@@ -23,13 +23,15 @@ public class LevelUIManger : MonoBehaviour {
 
     private Vector3 pauseMenuOriginalPosition, winnerMenuOriginalPosition;
 
-    
-    void Start()
+    private void Awake()
     {
         pauseMenuManager = FindObjectOfType<PauseMenuManager>();
 
-
         FindStuff();
+    }
+
+    void Start()
+    {
         if (playerAmount >= 2)
         {
             p1UIElements.SetActive(true);

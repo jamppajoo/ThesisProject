@@ -12,10 +12,13 @@ public class ObjectScript : MonoBehaviour {
 
     private int ranNumber = 1;
 
+    private void Awake()
+    {
+        objectMaterial = gameObject.GetComponent<Renderer>().material;
+    }
 
     private void Start()
     {
-        objectMaterial = gameObject.GetComponent<Renderer>().material;
         if (randomized)
             StartCoroutine(randomiseColor());
     }

@@ -21,10 +21,14 @@ public class MainMenuUIManager : MonoBehaviour
 
     private InputField p1InputField, p2InputField, p3InputField, p4InputField;
 
-    // Use this for initialization
-    void Start()
+
+    private void Awake()
     {
         findObjects();
+    }
+
+    void Start()
+    {
         mainObjectsOriginalPosition = mainObjects.transform.position;
         playerAmountOriginalPosition = playerAmountObjects.transform.position;
 

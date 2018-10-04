@@ -24,11 +24,12 @@ public class MultipleCameraTarget : MonoBehaviour
     private Camera mainCam;
     private LevelManager levelManager;
 
-    private void Start()
+    private void Awake()
     {
         mainCam = GetComponent<Camera>();
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
     }
+        
     private void LateUpdate()
     {
         if (targets.Count == 0)

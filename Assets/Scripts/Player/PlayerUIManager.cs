@@ -11,8 +11,6 @@ public class PlayerUIManager : MonoBehaviour {
     /// 
     /// </summary>
 
-    private float colorSelectorPointerMoveMultiplier = 45;
-
     private Vector3 colorSelectorAreaOriginalPlace;
     private Vector3 colorSelectorOffset = new Vector3(0,2000,0);
 
@@ -25,20 +23,20 @@ public class PlayerUIManager : MonoBehaviour {
 
     private Image speedBoostFill;
 
-    void Start () {
+    private void Awake()
+    {
         colorSelectorAreaGameObject = transform.Find("ColorSelectorArea").gameObject;
         colorSelectorAreaRectTransform = colorSelectorAreaGameObject.GetComponent<RectTransform>();
-        colorSelectorAreaOriginalPlace = colorSelectorAreaRectTransform.position;
+
         colorSelectorPointer = colorSelectorAreaGameObject.transform.GetChild(0).gameObject;
 
         speedBoostSlider = transform.Find("SpeedBoost").GetComponent<Slider>();
         speedBoostFill = speedBoostSlider.fillRect.GetComponent<Image>();
-
-	}
-
-    private void Update()
-    {
     }
+    void Start () {
+        
+        colorSelectorAreaOriginalPlace = colorSelectorAreaRectTransform.position;
+	}
 
     public void DisplayColorSelector(bool show)
     {

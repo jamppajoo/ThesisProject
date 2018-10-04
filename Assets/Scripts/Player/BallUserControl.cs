@@ -20,24 +20,13 @@ namespace UnityStandardAssets.Vehicles.Ball
 
         private void Awake()
         {
-
-            // Set up the reference.
             ball = GetComponent<Ball>();
-            playerID = ball.playerID;
-
-            // get the transform of the main camera
-            if (Camera.main != null)
-            {
-                cam = Camera.main.transform;
-            }
-            else
-            {
-                Debug.LogWarning(
-                    "Warning: no main camera found. Ball needs a Camera tagged \"MainCamera\", for camera-relative controls.");
-                // we use world-relative controls in this case, which may not be what the user wants, but hey, we warned them!
-            }
         }
-
+        private void Start()
+        {
+            playerID = ball.playerID;
+            cam = Camera.main.transform;
+        }
 
         private void Update()
         {
@@ -51,12 +40,12 @@ namespace UnityStandardAssets.Vehicles.Ball
             {
                 // calculate camera relative direction to move:
                 camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1)).normalized;
-                move = ( h*cam.right).normalized;
+                move = (h * cam.right).normalized;
             }
             else
             {
                 // we use world-relative directions in the case of no main camera
-                move = ( h*Vector3.right).normalized;
+                move = (h * Vector3.right).normalized;
             }
         }
 

@@ -19,16 +19,19 @@ public class BallChangeColor : MonoBehaviour
     private float deadZoneValue = 1f;
 
     private BallSpeedBoost ballSpeedBoost;
-    
-    void Start()
+
+    private void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
         playerID = GetComponent<Ball>().playerID;
 
         ballSpeedBoost = GetComponent<BallSpeedBoost>();
+        playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>();
+    }
 
+    void Start()
+    {
         playerMaterial = gameObject.GetComponent<Renderer>().material;
-        playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>() ;
     }
 
 

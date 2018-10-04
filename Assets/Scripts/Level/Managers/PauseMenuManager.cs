@@ -17,15 +17,17 @@ public class PauseMenuManager : MonoBehaviour {
 
     private Button resumeButton, restartButton, quitButton;
 
-
-	void Start () {
+    private void Awake()
+    {
         pauseMenuRectTransform = gameObject.GetComponent<RectTransform>();
-        originalPosition = pauseMenuRectTransform.position;
-
         resumeButton = gameObject.transform.Find("ResumeButton").GetComponent<Button>();
         restartButton = gameObject.transform.Find("RestartButton").GetComponent<Button>();
         quitButton = gameObject.transform.Find("QuitButton").GetComponent<Button>();
+    }
 
+    void Start () {
+        originalPosition = pauseMenuRectTransform.position;
+     
         resumeButton.onClick.AddListener(ResumeButtonPressed);
         restartButton.onClick.AddListener(RestartButtonPressed);
         quitButton.onClick.AddListener(QuitButtonPressed);

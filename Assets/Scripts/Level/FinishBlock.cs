@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FinishBlock : MonoBehaviour {
     private LevelManager levelManager;
+    
 
-    private void Start()
+    private void Awake()
     {
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
     }

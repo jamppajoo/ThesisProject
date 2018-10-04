@@ -15,14 +15,14 @@ public class PlayerJoinTheGameController : MonoBehaviour
 
     private bool playerHasJoinedGame = false;
 
-    void Start()
+    private void Awake()
     {
         myPlayerID = gameObject.transform.name.Substring(0, 2);
         joinTheGameText = gameObject.transform.GetChild(0).Find("JoinTheGameText").GetComponent<RectTransform>();
         playerJoinedGameImage = gameObject.transform.GetChild(0).Find("PlayerChoosing").GetComponent<RectTransform>();
         gameObject.GetComponentInChildren<PlayerChangeInfo>().SetMyPlayerID(myPlayerID);
     }
-
+    
     void Update()
     {
 

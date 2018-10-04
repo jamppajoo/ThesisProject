@@ -20,14 +20,15 @@ public class BallSpeedBoost : MonoBehaviour {
 
     private float speedBoostAmount = 1;
 
-    void Start () {
-
+    private void Awake()
+    {
         playerID = GetComponent<Ball>().playerID;
         playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>();
 
-        playerUIManager.SetSpeedBoostMaxValue(maxSpeedBoostAmount);
-        
         ball = GetComponent<Ball>();
+    }
+    void Start () {
+        playerUIManager.SetSpeedBoostMaxValue(maxSpeedBoostAmount);
 	}
 	
 	void Update () {

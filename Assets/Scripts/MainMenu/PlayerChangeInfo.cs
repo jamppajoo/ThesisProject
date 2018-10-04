@@ -20,15 +20,20 @@ public class PlayerChangeInfo : MonoBehaviour
 
     private int myCurrentImageIndex = 0;
 
-    void Start()
+    private void Awake()
     {
         myPlayerImageSlot = gameObject.GetComponent<Image>();
         myPlayerNameSlot = gameObject.transform.parent.GetComponentInChildren<Text>();
+        playerImages = FindObjectOfType<MainMenuManager>().playerImages;
+    }
 
+    void Start()
+    {
+        
         myCurrentPlayerSprite = myPlayerImageSlot.sprite;
         myCurrentPlayerName = myPlayerNameSlot.text;
 
-        playerImages = FindObjectOfType<MainMenuManager>().playerImages;
+
 
         myPlayerImageSlot.sprite = playerImages[myCurrentImageIndex];
 
