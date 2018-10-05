@@ -7,7 +7,6 @@ using UnityStandardAssets.CrossPlatformInput;
 [RequireComponent(typeof(BallSpeedBoost))]
 public class BallChangeColor : MonoBehaviour
 {
-
     private LevelManager levelManager;
 
     private PlayerUIManager playerUIManager;
@@ -23,6 +22,9 @@ public class BallChangeColor : MonoBehaviour
 
     private Ball ball;
 
+    private Collider2D triggerCollider;
+
+    private bool playerInsideObject = false;
     private void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
@@ -30,6 +32,7 @@ public class BallChangeColor : MonoBehaviour
 
         ballSpeedBoost = GetComponent<BallSpeedBoost>();
         ball = GetComponent<Ball>();
+        triggerCollider = gameObject.GetComponentInChildren<CircleCollider2D>();
 
         playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>();
     }
@@ -67,28 +70,32 @@ public class BallChangeColor : MonoBehaviour
 
         rightStickHorizontalPosition *= 40;
         rightStickVerticalPosition *= 40;
-
-        if (Mathf.Abs(rightStickHorizontalPosition) > deadZoneValue || Mathf.Abs(rightStickVerticalPosition) > deadZoneValue)
+        if (!playerInsideObject)
         {
-            playerUIManager.DisplayColorSelector(true);
+            if (Mathf.Abs(rightStickHorizontalPosition) > deadZoneValue || Mathf.Abs(rightStickVerticalPosition) > deadZoneValue)
+            {
+                playerUIManager.DisplayColorSelector(true);
 
-            if (rightStickVerticalPosition > rightStickHorizontalPosition && rightStickVerticalPosition > rightStickHorizontalPosition * -1)
-            {
-                RedChoosed();
+                if (rightStickVerticalPosition > rightStickHorizontalPosition && rightStickVerticalPosition > rightStickHorizontalPosition * -1)
+                {
+                    RedChoosed();
+                }
+                else if (rightStickVerticalPosition < rightStickHorizontalPosition && rightStickVerticalPosition < rightStickHorizontalPosition * -1)
+                {
+                    YellowChoosed();
+                }
+                else if (rightStickHorizontalPosition > rightStickVerticalPosition && rightStickHorizontalPosition > rightStickVerticalPosition * -1)
+                {
+                    GreenChoosed();
+                }
+                else if (rightStickHorizontalPosition < rightStickVerticalPosition && rightStickHorizontalPosition < rightStickVerticalPosition * -1)
+                {
+                    BlueChoosed();
+                }
+
             }
-            else if (rightStickVerticalPosition < rightStickHorizontalPosition && rightStickVerticalPosition < rightStickHorizontalPosition * -1)
-            {
-                YellowChoosed();
-            }
-            else if (rightStickHorizontalPosition > rightStickVerticalPosition && rightStickHorizontalPosition > rightStickVerticalPosition * -1)
-            {
-                GreenChoosed();
-            }
-            else if (rightStickHorizontalPosition < rightStickVerticalPosition && rightStickHorizontalPosition < rightStickVerticalPosition * -1)
-            {
-                BlueChoosed();
-            }
-            
+            else
+                playerUIManager.DisplayColorSelector(false);
         }
         else
             playerUIManager.DisplayColorSelector(false);
@@ -98,6 +105,10 @@ public class BallChangeColor : MonoBehaviour
 
     }
 
+    public void TogglePlayerInsideObject(bool isInside)
+    {
+        playerInsideObject = isInside;
+    }
 
     void RedChoosed()
     {
