@@ -21,19 +21,15 @@ public class Ball : MonoBehaviour
     public float boostingTorgueMultiplier = 2;
 
     [SerializeField] private float jumpPower = 2;
-    [SerializeField] private float counterJumpForce = 2;
 
     [HideInInspector]
     public LayerMask myLayerMask;
 
     public float jumpTime = 0.2f;
 
-
     private const float groundRayLength = .6f;
     private Rigidbody2D ballRB;
-
-    private bool isJumping = false;
-    private bool jumpKeyHeld = false;
+    
     private bool canJump = false;
     private float jumpTimer = 0;
 
@@ -85,12 +81,10 @@ public class Ball : MonoBehaviour
         if (canJump && jump && jumpTimer < jumpTime)
         {
             jumpTimer += Time.fixedDeltaTime;
-            //print("ASD: " + jumpTimer);
             ballRB.AddForce(Vector2.up * jumpPower);
         }
         else
         {
-            //print("ASD : " + jumpTimer + " : " + canJump + " : " + jump);
             jumpTimer = 0;
             canJump = false;
         }

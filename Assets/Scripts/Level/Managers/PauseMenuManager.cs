@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PauseMenuManager : MonoBehaviour {
 
@@ -39,7 +37,14 @@ public class PauseMenuManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Escape))
             ToggleMenu();
-	}
+
+        if(Input.GetButtonDown("Start_P1") || Input.GetButtonDown("Start_P2") || Input.GetButtonDown("Start_P3") || Input.GetButtonDown("Start_P4") 
+            )
+        {
+            ToggleMenu();
+        }
+
+    }
 
     public void ToggleMenu()
     {

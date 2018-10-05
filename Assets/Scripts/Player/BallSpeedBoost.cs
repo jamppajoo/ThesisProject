@@ -32,7 +32,7 @@ public class BallSpeedBoost : MonoBehaviour {
 	
 	void Update () {
 
-        speedBoostActivated = CrossPlatformInputManager.GetButton("Boost_" + playerID);
+        speedBoostActivated = Input.GetButton("Boost_" + playerID);
 
         if(speedBoostAmount > 0 && speedBoostActivated)
         {
