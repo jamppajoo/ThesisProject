@@ -18,6 +18,7 @@ public class BallSpeedBoost : MonoBehaviour {
     private Ball ball;
     [SerializeField]
     private float speedBoostAmount = 1;
+    public float speedBoostAddAmount = 1;
 
     private void Awake()
     {
@@ -54,24 +55,14 @@ public class BallSpeedBoost : MonoBehaviour {
     {
         playerUIManager.SetSpeedBoostColor(color);
     }
-    
 
-    private void OnCollisionEnter(Collision collision)
+    public void AddSpeedBoost()
     {
-
-        if (collision.gameObject.tag == "SpeedBoost")
+        if (speedBoostAmount + speedBoostAddAmount < maxSpeedBoostAmount)
         {
-            if (speedBoostAmount + 1.5f < maxSpeedBoostAmount)
-            {
-                speedBoostAmount += 1.5f;
-            }
-            else
-                speedBoostAmount = maxSpeedBoostAmount;
-
-            Destroy(collision.gameObject);
+            speedBoostAmount += speedBoostAddAmount;
         }
+        else
+            speedBoostAmount = maxSpeedBoostAmount;
     }
-
-
-
 }

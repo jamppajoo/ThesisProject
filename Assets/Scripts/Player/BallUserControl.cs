@@ -46,7 +46,6 @@ public class BallUserControl : MonoBehaviour
     {
         jump = Input.GetButton("Jump_" + playerID);
         ball.Move(move, jump);
-        print("ASD: " + jump);
         jump = false;
     }
 }
