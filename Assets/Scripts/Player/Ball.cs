@@ -5,11 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(BallUserControl))]
 public class Ball : MonoBehaviour
 {
-    /// <summary>
-    /// Ball jumping on same color platforms
-    ///
-    /// </summary>
-
 
 
     public string playerID;
@@ -25,11 +20,24 @@ public class Ball : MonoBehaviour
     public float normalTorgueMultiplier = 1;
     public float boostingTorgueMultiplier = 2;
 
-    [SerializeField] private float jumpPower = 2; // The force added to the ball when it jumps.
+    [SerializeField] private float jumpPower = 2;
+    [SerializeField] private float counterJumpForce = 2;
 
-    private const float groundRayLength = 1f; // The length of the ray to check if the ball is grounded.
-    private Rigidbody2D ballRB;
+    [HideInInspector]
     public LayerMask myLayerMask;
+
+    public float jumpTime = 0.2f;
+
+
+    private const float groundRayLength = .6f;
+    private Rigidbody2D ballRB;
+
+    private bool isJumping = false;
+    private bool jumpKeyHeld = false;
+    private bool canJump = false;
+    private float jumpTimer = 0;
+
+    RaycastHit2D groundHit;
 
     private void Awake()
     {
@@ -42,15 +50,15 @@ public class Ball : MonoBehaviour
 
     public void Move(Vector2 moveDirection, bool jump)
     {
-
         Vector2 moveForce = Vector2.right * moveDirection.x * movePower * torgueMultiplier;
         Vector2 airForce = Vector2.right * moveDirection.x * airControl * torgueMultiplier;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, groundRayLength);
+        groundHit = Physics2D.Raycast(transform.position, -Vector2.up, groundRayLength);
+
 
         if (ballRB.velocity.x < currentMaxVelocity && moveForce.x > 0 || ballRB.velocity.x > -currentMaxVelocity && moveForce.x < 0)
         {
-            if (hit.collider != null)
+            if (groundHit.collider != null)
             {
                 ballRB.AddForce(moveForce);
             }
@@ -59,14 +67,34 @@ public class Ball : MonoBehaviour
         }
         else
             ballRB.AddForce(-ballRB.velocity);
-        
 
-        if (hit.collider != null && jump)
-        {
-            if (hit.collider.gameObject.layer != myLayerMask)
-                ballRB.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-        }
+        Jump(jump);
+
     }
 
+    private void Jump(bool jump)
+    {
+        bool grounded = false;
+        if (groundHit.collider != null && groundHit.collider.gameObject.layer != myLayerMask)
+            grounded = true; 
+        else
+            grounded = false;
+        
+        if (grounded)
+            canJump = true;
+        if (canJump && jump && jumpTimer < jumpTime)
+        {
+            jumpTimer += Time.fixedDeltaTime;
+            //print("ASD: " + jumpTimer);
+            ballRB.AddForce(Vector2.up * jumpPower);
+        }
+        else
+        {
+            //print("ASD : " + jumpTimer + " : " + canJump + " : " + jump);
+            jumpTimer = 0;
+            canJump = false;
+        }
+        
+    }
 }
 
