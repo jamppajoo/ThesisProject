@@ -30,7 +30,8 @@ public class BallUserControl : MonoBehaviour
         // Get the axis and jump input.
 
         float h = Input.GetAxis("Horizontal_" + playerID);
-        
+        jump = Input.GetButton("Jump_" + playerID);
+
         if (cam != null)
         {
             camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1)).normalized;
@@ -40,13 +41,12 @@ public class BallUserControl : MonoBehaviour
         {
             move = (h * Vector3.right).normalized;
         }
+
     }
 
     private void FixedUpdate()
     {
-        jump = Input.GetButton("Jump_" + playerID);
         ball.Move(move, jump);
-        jump = false;
     }
 }
 

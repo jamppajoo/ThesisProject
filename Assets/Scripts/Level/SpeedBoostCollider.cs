@@ -11,7 +11,6 @@ public class SpeedBoostCollider : MonoBehaviour
     {
         t = GetComponent<Tilemap>();
         BoundsInt bounds = t.cellBounds;
-        TileBase[] allTiles = t.GetTilesBlock(bounds);
 
         var s = t.layoutGrid.cellSize / 2;
 
@@ -35,8 +34,7 @@ public class SpeedBoostCollider : MonoBehaviour
                     c.transform.parent = t.transform;
                     c.transform.localPosition = t.CellToLocal(localPlace) + s;
                     c.gameObject.layer = LayerMask.NameToLayer("SpeedBoost");
-
-                    //Debug.Log("x:" + n + " y:" + p + " tile:" + tile.name);
+                    
                 }
             }
         }
