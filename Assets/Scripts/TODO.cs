@@ -6,12 +6,11 @@ public class TODO : MonoBehaviour {
     
     /* Level 
      * Automatic background generation and destruction
-     * 
+     * Speedboost tulee tuplana
      */
 
     /* UI
      * Menu controls
-     * Pause menu controls
      * Fix and clarify inputmanager
      */
 

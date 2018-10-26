@@ -30,7 +30,7 @@ public class PlayerUIManager : MonoBehaviour {
 
         colorSelectorPointer = colorSelectorAreaGameObject.transform.GetChild(0).gameObject;
 
-        speedBoostSlider = transform.Find("SpeedBoost").GetComponent<Slider>();
+        speedBoostSlider = transform.Find("SpeedBoostUI").GetComponent<Slider>();
         speedBoostFill = speedBoostSlider.fillRect.GetComponent<Image>();
     }
     void Start () {

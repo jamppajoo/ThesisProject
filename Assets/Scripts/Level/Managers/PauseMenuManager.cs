@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.EventSystems;
 
 public class PauseMenuManager : MonoBehaviour {
 
@@ -38,8 +38,7 @@ public class PauseMenuManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape))
             ToggleMenu();
 
-        if(Input.GetButtonDown("Start_P1") || Input.GetButtonDown("Start_P2") || Input.GetButtonDown("Start_P3") || Input.GetButtonDown("Start_P4") 
-            )
+        if(Input.GetButtonDown("Start_P1") || Input.GetButtonDown("Start_P2") || Input.GetButtonDown("Start_P3") || Input.GetButtonDown("Start_P4"))
         {
             ToggleMenu();
         }
@@ -70,7 +69,7 @@ public class PauseMenuManager : MonoBehaviour {
     }
     private void RestartButtonPressed()
     {
-        //TODO restart scene or smth
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void QuitButtonPressed()
     {

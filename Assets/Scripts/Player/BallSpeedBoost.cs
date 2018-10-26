@@ -58,7 +58,7 @@ public class BallSpeedBoost : MonoBehaviour {
 
     public void AddSpeedBoost()
     {
-        if (speedBoostAmount + speedBoostAddAmount < maxSpeedBoostAmount)
+        if ((speedBoostAmount + speedBoostAddAmount) < maxSpeedBoostAmount)
         {
             speedBoostAmount += speedBoostAddAmount;
         }
