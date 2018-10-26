@@ -16,17 +16,36 @@ public class PlayerChangeInfo : MonoBehaviour
 
     private Text myPlayerNameSlot;
 
-    private bool pictureChanged = false;
 
     private List<Sprite> playerImages;
+    private List<string> playerNames;
 
     private int myCurrentImageIndex = 0;
+    private int myCurrentNameIndex = 0;
+
+    private Image imageSlotLeftArrow;
+    private Image imageSlotRightArrow;
+
+    private Image nameSlotLeftArrow;
+    private Image nameSlotRightArrow;
+
+    private bool pictureChanged = false;
+    private bool nameChanged = false;
+    private bool scrollingPictures = true;
+    private bool canChangeFocus = false;
 
     private void Awake()
     {
         myPlayerImageSlot = gameObject.GetComponent<Image>();
         myPlayerNameSlot = gameObject.transform.parent.GetComponentInChildren<Text>();
         playerImages = FindObjectOfType<MainMenuManager>().playerImages;
+        playerNames = FindObjectOfType<MainMenuManager>().playerNames;
+
+        imageSlotRightArrow = gameObject.transform.parent.Find("RightArrowImage").GetComponent<Image>();
+        imageSlotLeftArrow = gameObject.transform.parent.Find("LeftArrowImage").GetComponent<Image>();
+
+        nameSlotRightArrow = myPlayerNameSlot.transform.Find("ChangeNameRightArrow").GetComponent<Image>();
+        nameSlotLeftArrow = myPlayerNameSlot.transform.Find("ChangeNameLeftArrow").GetComponent<Image>();
     }
 
     void Start()
@@ -36,29 +55,74 @@ public class PlayerChangeInfo : MonoBehaviour
         myCurrentPlayerName = myPlayerNameSlot.text;
 
         myPlayerImageSlot.sprite = playerImages[myCurrentImageIndex];
-
     }
 
     void Update()
     {
         if (playerCanModify)
         {
-            float horizontalAxis = Input.GetAxis("Horizontal_" + myPlayerID);
-            if (horizontalAxis < 0.5f && horizontalAxis > -0.5f)
-                pictureChanged = false;
+            if (Mathf.Abs(Input.GetAxis("Vertical_" + myPlayerID)) > 0.5f)
+            {
+                if ( canChangeFocus)
+                    scrollingPictures = !scrollingPictures;
+                canChangeFocus = false;
+            }
+            else 
+            {
+                canChangeFocus = true;
+            }
 
-            if (horizontalAxis > 0.5f)
+            float horizontalAxis = Input.GetAxis("Horizontal_" + myPlayerID);
+
+            if (scrollingPictures)
             {
-                if (!pictureChanged)
-                    ScrollPictures(true);
-                pictureChanged = true;
+                nameSlotLeftArrow.color = Color.white;
+                nameSlotRightArrow.color = Color.white;
+                imageSlotLeftArrow.color = Color.blue;
+                imageSlotRightArrow.color = Color.blue;
+
+                if (horizontalAxis < 0.5f && horizontalAxis > -0.5f)
+                    pictureChanged = false;
+
+                if (horizontalAxis > 0.5f)
+                {
+                    if (!pictureChanged)
+                        ScrollPictures(true);
+                    pictureChanged = true;
+                }
+                if (horizontalAxis < -0.5f)
+                {
+                    if (!pictureChanged)
+                        ScrollPictures(false);
+                    pictureChanged = true;
+                }
             }
-            if (horizontalAxis < -0.5f)
+            else
             {
-                if (!pictureChanged)
-                    ScrollPictures(false);
-                pictureChanged = true;
+                nameSlotLeftArrow.color = Color.blue;
+                nameSlotRightArrow.color = Color.blue;
+                imageSlotLeftArrow.color = Color.white;
+                imageSlotRightArrow.color = Color.white;
+
+                if (horizontalAxis < 0.5f && horizontalAxis > -0.5f)
+                    nameChanged = false;
+
+                if (horizontalAxis > 0.5f)
+                {
+                    if (!nameChanged)
+                        ScrollNames(true);
+                    nameChanged = true;
+                }
+                if (horizontalAxis < -0.5f)
+                {
+                    if (!nameChanged)
+                        ScrollNames(false);
+                    nameChanged = true;
+                }
+
+
             }
+            
         }
     }
 
@@ -85,6 +149,30 @@ public class PlayerChangeInfo : MonoBehaviour
         }
 
         myPlayerImageSlot.sprite = playerImages[myCurrentImageIndex];
+        SetMyInfo();
+    }
+    void ScrollNames(bool toRight)
+    {
+        if (toRight)
+        {
+            if (myCurrentNameIndex + 1 < playerNames.Count)
+                myCurrentNameIndex++;
+            else
+            {
+                myCurrentNameIndex = 0;
+            }
+        }
+        else
+        {
+            if (myCurrentNameIndex - 1 >= 0)
+                myCurrentNameIndex--;
+            else
+            {
+                myCurrentNameIndex = playerNames.Count - 1;
+            }
+        }
+
+        myPlayerNameSlot.text = playerNames[myCurrentNameIndex];
         SetMyInfo();
     }
 
