@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerChangeInfo : MonoBehaviour
 {
+    [HideInInspector]
+    public bool playerCanModify = false;
 
     private string myPlayerID;
     private string myCurrentPlayerName;
@@ -29,11 +31,9 @@ public class PlayerChangeInfo : MonoBehaviour
 
     void Start()
     {
-        
+
         myCurrentPlayerSprite = myPlayerImageSlot.sprite;
         myCurrentPlayerName = myPlayerNameSlot.text;
-
-
 
         myPlayerImageSlot.sprite = playerImages[myCurrentImageIndex];
 
@@ -41,25 +41,25 @@ public class PlayerChangeInfo : MonoBehaviour
 
     void Update()
     {
-
-        float horizontalAxis = Input.GetAxis("Horizontal_" + myPlayerID);
-        print("ASD: " + horizontalAxis);
-        if (horizontalAxis < 0.5f && horizontalAxis > -0.5f)
-            pictureChanged = false;
-
-        if (horizontalAxis > 0.5f)
+        if (playerCanModify)
         {
-            if (!pictureChanged)
-                ScrollPictures(true);
-            pictureChanged = true;
-        }
-        if (horizontalAxis < -0.5f)
-        {
-            if (!pictureChanged)
-                ScrollPictures(false);
-            pictureChanged = true;
-        }
+            float horizontalAxis = Input.GetAxis("Horizontal_" + myPlayerID);
+            if (horizontalAxis < 0.5f && horizontalAxis > -0.5f)
+                pictureChanged = false;
 
+            if (horizontalAxis > 0.5f)
+            {
+                if (!pictureChanged)
+                    ScrollPictures(true);
+                pictureChanged = true;
+            }
+            if (horizontalAxis < -0.5f)
+            {
+                if (!pictureChanged)
+                    ScrollPictures(false);
+                pictureChanged = true;
+            }
+        }
     }
 
     void ScrollPictures(bool toRight)
@@ -80,7 +80,7 @@ public class PlayerChangeInfo : MonoBehaviour
                 myCurrentImageIndex--;
             else
             {
-                myCurrentImageIndex = playerImages.Count -1;
+                myCurrentImageIndex = playerImages.Count - 1;
             }
         }
 

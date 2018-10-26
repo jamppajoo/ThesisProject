@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerJoinTheGameController : MonoBehaviour
 {
+    [HideInInspector]
+    public bool playerCanModify = false;
 
     private string myPlayerID;
     private string myPlayerName;
@@ -12,6 +14,9 @@ public class PlayerJoinTheGameController : MonoBehaviour
     private Sprite myPlayerSprite;
     private RectTransform playerJoinedGameImage;
     private RectTransform joinTheGameText;
+
+    private Vector3 playerJoinedGameImageOriginalPosition;
+    private Vector3 joinTheGameTextOriginalPosition;
 
     private bool playerHasJoinedGame = false;
 
@@ -22,32 +27,39 @@ public class PlayerJoinTheGameController : MonoBehaviour
         playerJoinedGameImage = gameObject.transform.GetChild(0).Find("PlayerChoosing").GetComponent<RectTransform>();
         gameObject.GetComponentInChildren<PlayerChangeInfo>().SetMyPlayerID(myPlayerID);
     }
-    
+
+    private void Start()
+    {
+        playerJoinedGameImageOriginalPosition = playerJoinedGameImage.transform.localPosition;
+        joinTheGameTextOriginalPosition = joinTheGameText.transform.localPosition;
+    }
+
     void Update()
     {
-
-        if (Input.GetButton("Jump_" + myPlayerID))
+        if (playerCanModify)
         {
-            if (!playerHasJoinedGame)
-                JoinTheGame();
-            else
-                LockSelection();
+            if (Input.GetButton("Jump_" + myPlayerID))
+            {
+                if (!playerHasJoinedGame)
+                    JoinTheGame();
+                else
+                    LockSelection();
+            }
+            if (Input.GetButton("B_" + myPlayerID))
+                LeaveTheGame();
         }
-        //if (Input.GetButton("B_" + myPlayerID))
-        //    LeaveTheGame();
-
     }
 
     private void JoinTheGame()
     {
-        joinTheGameText.position = playerJoinedGameImage.position;
+        joinTheGameText.localPosition = playerJoinedGameImage.localPosition;
         playerJoinedGameImage.localPosition = Vector3.zero;
         playerHasJoinedGame = true;
     }
     private void LeaveTheGame()
     {
-        playerJoinedGameImage.position = joinTheGameText.position;
-        joinTheGameText.localPosition = Vector3.zero;
+        playerJoinedGameImage.transform.localPosition = playerJoinedGameImageOriginalPosition;
+        joinTheGameText.transform.localPosition = joinTheGameTextOriginalPosition;
         playerHasJoinedGame = false;
         //Delete from all the lists if added
     }

@@ -237,26 +237,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: main_menu_logo
-      rect:
-        serializedVersion: 2
-        x: 1148
-        y: 624
-        width: 799
-        height: 630
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3fb03c5aaf9bd0841bb68a1b993d0631
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: main_menu_player_icon_aino
       rect:
         serializedVersion: 2
@@ -352,6 +332,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a9d3abb16dce4ba47a5b753b497f385a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: main_menu_logo
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 68
+        width: 817
+        height: 641
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d1e64b53cf5df44ab61264bf5379e43
       vertices: []
       indices: 
       edges: []
