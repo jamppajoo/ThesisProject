@@ -6,7 +6,7 @@ public class TODO : MonoBehaviour {
     
     /* Level 
      * Automatic background generation and destruction
-     * Speedboost tulee tuplana
+     * Platformien maskit 
      */
 
     /* UI
