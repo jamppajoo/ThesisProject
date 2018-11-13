@@ -150,7 +150,7 @@ MonoBehaviour:
     - {fileID: 21300028, guid: 5892383fedc097f4a8998bfd502d1e3f, type: 3}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.514
-    m_RuleTransform: 0
+    m_RuleTransform: 1
     m_Output: 0
     m_ColliderType: 1
     m_RandomTransform: 0
