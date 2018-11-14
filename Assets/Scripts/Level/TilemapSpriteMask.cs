@@ -53,6 +53,8 @@ public class TilemapSpriteMask : MonoBehaviour
     }
     private void DestroySpriteMasks()
     {
+        if (generatedSpriteMasks.Count == 0 || generatedSpriteMasks == null)
+            return;
         foreach (GameObject item in generatedSpriteMasks)
         {
             DestroyImmediate(item);
