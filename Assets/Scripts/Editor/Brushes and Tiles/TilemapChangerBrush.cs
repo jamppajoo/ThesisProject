@@ -88,21 +88,21 @@ namespace UnityEditor
             GameObject[] sceneGameObjects = new GameObject[0];
             
 
-            if (GUILayout.Button("Check Prefabs"))
-            {
-                prefabGameObjects = LoadAllPrefabsOfType(@"Assets\Prefabs\Essential");
-                sceneGameObjects = FindObjectsOfType<GameObject>();
-                foreach (GameObject prefab in prefabGameObjects)
-                {
+            //if (GUILayout.Button("Check Prefabs"))
+            //{
+            //    prefabGameObjects = LoadAllPrefabsOfType(@"Assets\Prefabs\Essential");
+            //    sceneGameObjects = FindObjectsOfType<GameObject>();
+            //    foreach (GameObject prefab in prefabGameObjects)
+            //    {
 
-                    if (!GameObject.Find(prefab.name))
-                    {
-                        GameObject instatedObject = Instantiate(prefab);
-                        instatedObject.name = prefab.name;
-                    }
+            //        if (!GameObject.Find(prefab.name))
+            //        {
+            //            GameObject instatedObject = Instantiate(prefab);
+            //            instatedObject.name = prefab.name;
+            //        }
                         
-                }
-            }
+            //    }
+            //}
             GetTarget = new SerializedObject(tilemapChangerBrush);
             ThisList = GetTarget.FindProperty("tilemapConnections");
             GetTarget.Update();
