@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Linq;
-using UnityEditor;
+
 
 [RequireComponent(typeof(Tilemap))]
 public class TilemapSpriteMask : MonoBehaviour
@@ -86,6 +86,7 @@ public class TilemapSpriteMask : MonoBehaviour
     //    }
     //}
 }
+#if UNITY_EDITOR
 [CustomEditor(typeof(TilemapSpriteMask))]
 [CanEditMultipleObjects]
 public class TilemapSpriteMaskEditor : Editor
@@ -100,3 +101,4 @@ public class TilemapSpriteMaskEditor : Editor
         }
     }
 }
+#endif
