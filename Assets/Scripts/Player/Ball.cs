@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles player movement according to BallUserControl input
+/// </summary>
+
 [RequireComponent(typeof(BallUserControl))]
 public class Ball : MonoBehaviour
 {
-
 
     public string playerID;
 

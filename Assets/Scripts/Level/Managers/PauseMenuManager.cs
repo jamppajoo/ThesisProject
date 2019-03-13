@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-public class PauseMenuManager : MonoBehaviour {
+public class PauseMenuManager : MonoBehaviour
+{
 
     private bool showing = true;
 
@@ -15,6 +16,9 @@ public class PauseMenuManager : MonoBehaviour {
 
     private Button resumeButton, restartButton, quitButton;
 
+
+    private bool resumeButtonCanBePressed = false;
+
     private void Awake()
     {
         pauseMenuRectTransform = gameObject.GetComponent<RectTransform>();
@@ -23,22 +27,26 @@ public class PauseMenuManager : MonoBehaviour {
         quitButton = gameObject.transform.Find("QuitButton").GetComponent<Button>();
     }
 
-    void Start () {
+    void Start()
+    {
         originalPosition = pauseMenuRectTransform.position;
-     
+
         resumeButton.onClick.AddListener(ResumeButtonPressed);
         restartButton.onClick.AddListener(RestartButtonPressed);
         quitButton.onClick.AddListener(QuitButtonPressed);
 
         ToggleMenu();
-	}
-	
-	void Update () {
+    }
+
+    void Update()
+    {
 
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
             ToggleMenu();
 
-        if(Input.GetButtonDown("Start_P1") || Input.GetButtonDown("Start_P2") || Input.GetButtonDown("Start_P3") || Input.GetButtonDown("Start_P4"))
+        }
+        if (Input.GetButtonDown("Start"))
         {
             ToggleMenu();
         }
@@ -47,25 +55,29 @@ public class PauseMenuManager : MonoBehaviour {
 
     public void ToggleMenu()
     {
+        print("SAOIPJDOIJ");
         showing = !showing;
         if (showing)
         {
             Time.timeScale = 0;
             pauseMenuRectTransform.position = originalPosition;
+            resumeButtonCanBePressed = true;
         }
 
         else
         {
-            Time.timeScale = 1; 
+            Time.timeScale = 1;
             pauseMenuRectTransform.position = originalPosition + offset;
+            resumeButtonCanBePressed = false;
         }
-            
+
 
     }
 
     private void ResumeButtonPressed()
     {
-        ToggleMenu();
+        if (resumeButtonCanBePressed)
+            ToggleMenu();
     }
     private void RestartButtonPressed()
     {
