@@ -40,9 +40,10 @@ GameObject:
   - component: {fileID: 50469711438018826}
   - component: {fileID: 58002369515338134}
   - component: {fileID: 114791667382618608}
-  - component: {fileID: 114664467822559626}
+  - component: {fileID: 114109984465592596}
   - component: {fileID: 114166325372126458}
   - component: {fileID: 114728804250890088}
+  - component: {fileID: 114706041145069550}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -127,6 +128,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5782828
+--- !u!114 &114109984465592596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1799352162764760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!114 &114165504308732252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea47074b8a3f364c933a236bfa27ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114664467822559626
+--- !u!114 &114706041145069550
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,12 +172,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1799352162764760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 70b35984962a1ee4ea8563a02376d62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  playerID: 
 --- !u!114 &114728804250890088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -204,7 +217,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114664467822559626}
+  - {fileID: 114109984465592596}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
