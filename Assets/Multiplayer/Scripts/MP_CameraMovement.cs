@@ -25,6 +25,9 @@ namespace MultiPlayer
         private Camera mainCam;
         private LevelManager levelManager;
 
+        private float zoomAmount;
+        private float networkZoomAmount;
+
         private void Awake()
         {
             mainCam = GetComponent<Camera>();
@@ -33,13 +36,16 @@ namespace MultiPlayer
 
         private void LateUpdate()
         {
-            if (!photonView.IsMine)
-                return;
-
             if (targets.Count == 0)
                 return;
+            if (photonView.IsMine)
+                Zoom();
+            else
+            {
+                NetworkZoom();
+            }
+
             Move();
-            Zoom();
             if (GetGreatestDistance() > distanceToDropLastPlayer)
             {
                 DropLastPlayer();
@@ -56,8 +62,15 @@ namespace MultiPlayer
         }
         private void Zoom()
         {
-            float newZoom = Mathf.Lerp(minZoom, maxZoom, GetGreatestDistance() / zoomLimiter);
-            mainCam.orthographicSize = Mathf.Lerp(mainCam.orthographicSize, newZoom, Time.deltaTime);
+            zoomAmount = Mathf.Lerp(minZoom, maxZoom, GetGreatestDistance() / zoomLimiter);
+             zoomAmount = Mathf.Lerp(mainCam.orthographicSize, zoomAmount, Time.deltaTime);
+            mainCam.orthographicSize = zoomAmount;
+        }
+        private void NetworkZoom()
+        {
+            networkZoomAmount = Mathf.Lerp(minZoom, maxZoom, GetGreatestDistance() / zoomLimiter);
+            networkZoomAmount = Mathf.Lerp(mainCam.orthographicSize, networkZoomAmount, Time.deltaTime);
+            mainCam.orthographicSize = networkZoomAmount;
         }
         private void DropLastPlayer()
         {
@@ -134,7 +147,7 @@ namespace MultiPlayer
             }
             else
             {
-                mainCam.orthographicSize = (float) stream.ReceiveNext();
+                networkZoomAmount = (float) stream.ReceiveNext();
             }
         }
     }
