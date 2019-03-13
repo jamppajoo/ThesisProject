@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace UnityEditor
 {
+    /// <summary>
+    /// Handles tilemap changing according to list made in custom editor
+    /// List assets needs to be prefabs and tilemap's name has to be unique in the scene
+    /// </summary>
+
     [CustomGridBrush(false, false, true, "Tilemap Changer Brush")]
     public class TilemapChangerBrush : GridBrush
     {
@@ -87,7 +91,8 @@ namespace UnityEditor
             List<GameObject> prefabGameObjects = new List<GameObject>();
             GameObject[] sceneGameObjects = new GameObject[0];
             
-
+            //For comparing \Prefabs\Essential prefabs to scene objects by name, if prefab asset is'nt in scene, we instantiate it
+            // Not used by now, but might imporve in the future.
             //if (GUILayout.Button("Check Prefabs"))
             //{
             //    prefabGameObjects = LoadAllPrefabsOfType(@"Assets\Prefabs\Essential");

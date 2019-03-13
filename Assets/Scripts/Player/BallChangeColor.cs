@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
+
+/// <summary>
+/// Handles changing ball color and layer according to right joystick input
+/// </summary>
+
 [RequireComponent(typeof(Ball))]
 [RequireComponent(typeof(BallSpeedBoost))]
 public class BallChangeColor : MonoBehaviour
@@ -46,6 +51,7 @@ public class BallChangeColor : MonoBehaviour
     void Update()
     {
 
+        //For testing purposes
         if (Input.GetKeyDown(KeyCode.U))
         {
             RedChoosed();
@@ -62,33 +68,31 @@ public class BallChangeColor : MonoBehaviour
         {
             BlueChoosed();
         }
+    }
 
-
-
-        float rightStickVerticalPosition = CrossPlatformInputManager.GetAxis("Vertical2_" + playerID);
-        float rightStickHorizontalPosition = CrossPlatformInputManager.GetAxis("Horizontal2_" + playerID);
-
-        rightStickHorizontalPosition *= 40;
-        rightStickVerticalPosition *= 40;
+    public void ChangeBallColor(float verPos, float horPos)
+    {
+        horPos *= 40;
+        verPos *= 40;
         if (!playerInsideObject)
         {
-            if (Mathf.Abs(rightStickHorizontalPosition) > deadZoneValue || Mathf.Abs(rightStickVerticalPosition) > deadZoneValue)
+            if (Mathf.Abs(horPos) > deadZoneValue || Mathf.Abs(verPos) > deadZoneValue)
             {
                 playerUIManager.DisplayColorSelector(true);
 
-                if (rightStickVerticalPosition > rightStickHorizontalPosition && rightStickVerticalPosition > rightStickHorizontalPosition * -1)
+                if (verPos > horPos && verPos > horPos * -1)
                 {
                     RedChoosed();
                 }
-                else if (rightStickVerticalPosition < rightStickHorizontalPosition && rightStickVerticalPosition < rightStickHorizontalPosition * -1)
+                else if (verPos < horPos && verPos < horPos * -1)
                 {
                     YellowChoosed();
                 }
-                else if (rightStickHorizontalPosition > rightStickVerticalPosition && rightStickHorizontalPosition > rightStickVerticalPosition * -1)
+                else if (horPos > verPos && horPos > verPos * -1)
                 {
                     GreenChoosed();
                 }
-                else if (rightStickHorizontalPosition < rightStickVerticalPosition && rightStickHorizontalPosition < rightStickVerticalPosition * -1)
+                else if (horPos < verPos && horPos < verPos * -1)
                 {
                     BlueChoosed();
                 }
@@ -100,9 +104,7 @@ public class BallChangeColor : MonoBehaviour
         else
             playerUIManager.DisplayColorSelector(false);
 
-        playerUIManager.MoveColorSelector(new Vector3(rightStickHorizontalPosition * -1, rightStickVerticalPosition, 0));
-
-
+        playerUIManager.MoveColorSelector(new Vector3(horPos * -1, verPos, 0));
     }
 
     public void TogglePlayerInsideObject(bool isInside)

@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 
+/// <summary>
+/// Adds torgue and speed to player when right bumper is pressed
+/// </summary>
+
+[RequireComponent(typeof(Ball))]
+[RequireComponent(typeof(BallUserControl))]
 public class BallSpeedBoost : MonoBehaviour {
 
     public float maxSpeedBoostAmount;
     private string playerID;
-
-    private bool speedBoostActivated;
+    
 
     private PlayerUIManager playerUIManager;
 
@@ -24,18 +29,18 @@ public class BallSpeedBoost : MonoBehaviour {
     {
         playerID = GetComponent<Ball>().playerID;
         playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>();
-
+        
         ball = GetComponent<Ball>();
     }
     void Start () {
         playerUIManager.SetSpeedBoostMaxValue(maxSpeedBoostAmount);
 	}
 	
-	void Update () {
 
-        speedBoostActivated = Input.GetButton("Boost_" + playerID);
+    public void SpeedBoostActivated(bool activated)
+    {
 
-        if(speedBoostAmount > 0 && speedBoostActivated)
+        if (speedBoostAmount > 0 && activated)
         {
             speedBoostAmount -= Time.deltaTime;
             ball.currentMaxVelocity = ball.boostedVelocity;

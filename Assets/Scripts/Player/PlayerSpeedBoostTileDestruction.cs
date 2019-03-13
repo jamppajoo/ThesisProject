@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class PlayerSpeedBoostTileDestruction : MonoBehaviour {
 
     /// <summary>
-    /// Add speedboost amount
+    /// Adds speedboost amount and destructs the tile object 
     /// </summary>
 
     private LayerMask speedBoostLayer;
