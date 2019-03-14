@@ -69,8 +69,7 @@ public class BallChangeColor : MonoBehaviour
             BlueChoosed();
         }
     }
-
-    public void ChangeBallColor(float verPos, float horPos)
+    public void ChangeBallColor(float horPos, float verPos)
     {
         horPos *= 40;
         verPos *= 40;

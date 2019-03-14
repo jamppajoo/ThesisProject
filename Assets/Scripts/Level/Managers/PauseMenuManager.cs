@@ -55,7 +55,6 @@ public class PauseMenuManager : MonoBehaviour
 
     public void ToggleMenu()
     {
-        print("SAOIPJDOIJ");
         showing = !showing;
         if (showing)
         {

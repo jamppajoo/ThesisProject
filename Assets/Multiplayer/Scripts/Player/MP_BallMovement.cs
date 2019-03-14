@@ -7,7 +7,7 @@ namespace MultiPlayer
     public class MP_BallMovement : MonoBehaviour
     {
         [SerializeField]
-        private float movePower = 5;
+        private float movePower = 10;
         [SerializeField]
         private float airControl = 2;
 
@@ -19,8 +19,8 @@ namespace MultiPlayer
         public float normalTorgueMultiplier = 1;
         public float boostingTorgueMultiplier = 2;
 
-        [SerializeField] private float jumpPower = 2;
-        public float jumpTime = 0.2f;
+        [SerializeField] private float jumpPower = 150;
+        public float jumpTime = 0.15f;
 
         [HideInInspector]
         public LayerMask myLayerMask;
@@ -66,8 +66,8 @@ namespace MultiPlayer
 
         public void Move(Vector2 moveDirection, bool jump)
         {
-            Vector2 moveForce = Vector2.right * moveDirection.x * movePower * torgueMultiplier;
-            Vector2 airForce = Vector2.right * moveDirection.x * airControl * torgueMultiplier;
+            Vector2 moveForce = Vector2.right * moveDirection.x * movePower * torgueMultiplier * Time.deltaTime;
+            Vector2 airForce = Vector2.right * moveDirection.x * airControl * torgueMultiplier * Time.deltaTime;
 
             groundHit = Physics2D.Raycast(transform.position, -Vector2.up, groundRayLength);
 
@@ -102,10 +102,11 @@ namespace MultiPlayer
 
             if (grounded)
                 canJump = true;
+
             if (canJump && jump && jumpTimer < jumpTime)
             {
-                jumpTimer += Time.fixedDeltaTime;
-                ballRB.AddForce(Vector2.up * jumpPower);
+                jumpTimer += Time.deltaTime;
+                ballRB.AddForce(Vector2.up * jumpPower * Time.deltaTime, ForceMode2D.Impulse);
             }
             else
             {
