@@ -21,6 +21,7 @@ namespace MultiPlayer
 
         [SerializeField] private float jumpPower = 150;
         public float jumpTime = 0.15f;
+        public float jumpDampening = 0.2f;
 
         [HideInInspector]
         public LayerMask myLayerMask;
@@ -40,6 +41,8 @@ namespace MultiPlayer
         private Vector3 camForward;
 
         private Vector3 movement;
+
+        private bool jumping = false;
 
         private void Awake()
         {
@@ -85,7 +88,7 @@ namespace MultiPlayer
             }
             else
             {
-                ballRB.AddForce(-ballRB.velocity);
+                ballRB.AddForce(new Vector2(-ballRB.velocity.x, 0));
             }
 
             Jump(jump);
@@ -106,12 +109,22 @@ namespace MultiPlayer
             if (canJump && jump && jumpTimer < jumpTime)
             {
                 jumpTimer += Time.deltaTime;
-                ballRB.AddForce(Vector2.up * jumpPower * Time.deltaTime, ForceMode2D.Impulse);
+
+                if (grounded && !jumping)
+                {
+                    ballRB.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                    jumping = true;
+                }
             }
             else
             {
                 jumpTimer = 0;
                 canJump = false;
+                jumping = false;
+            }
+            if (!jump && ballRB.velocity.y > 0)
+            {
+                ballRB.AddForce(new Vector2(0, -ballRB.velocity.y / jumpDampening));
             }
 
         }

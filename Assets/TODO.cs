@@ -8,7 +8,7 @@ public class TODO : MonoBehaviour
     /* General
      * Comment code
      * Mby some refactoring
-     * Jump isn't consistent
+     * Keyboard & Mouse controls
      */
 
     /* Level 
@@ -32,7 +32,6 @@ public class TODO : MonoBehaviour
      * Working pause menu
      * Player spawning points
      * Repositing camera when player leaves
-     * Some weird bug on player movement, much slower on build than on editor
      * 
      * MP Menu
      * Combine with local multiplayer menu

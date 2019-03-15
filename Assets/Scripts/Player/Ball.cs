@@ -29,12 +29,15 @@ public class Ball : MonoBehaviour
     public LayerMask myLayerMask;
 
     public float jumpTime = 0.2f;
+    public float jumpDampening = 0.2f;
 
     private const float groundRayLength = .6f;
     private Rigidbody2D ballRB;
-    
+
     private bool canJump = false;
     private float jumpTimer = 0;
+
+    private bool jumping = false;
 
     RaycastHit2D groundHit;
 
@@ -62,10 +65,13 @@ public class Ball : MonoBehaviour
                 ballRB.AddForce(moveForce);
             }
             else
+            {
                 ballRB.AddForce(airForce);
+
+            }
         }
         else
-            ballRB.AddForce(-ballRB.velocity);
+            ballRB.AddForce(new Vector2(-ballRB.velocity.x, 0));
 
         Jump(jump);
 
@@ -75,23 +81,34 @@ public class Ball : MonoBehaviour
     {
         bool grounded = false;
         if (groundHit.collider != null && groundHit.collider.gameObject.layer != myLayerMask)
-            grounded = true; 
+            grounded = true;
         else
             grounded = false;
-        
+
         if (grounded)
             canJump = true;
+
         if (canJump && jump && jumpTimer < jumpTime)
         {
             jumpTimer += Time.fixedDeltaTime;
-            ballRB.AddForce(Vector2.up * jumpPower);
+
+            if (grounded && !jumping)
+            {
+                ballRB.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                jumping = true;
+            }
         }
         else
         {
             jumpTimer = 0;
             canJump = false;
+            jumping = false;
         }
-        
+        if (!jump && ballRB.velocity.y > 0)
+        {
+            ballRB.AddForce(new Vector2(0, -ballRB.velocity.y / jumpDampening));
+        }
+
     }
 }
 

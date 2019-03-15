@@ -257,8 +257,9 @@ MonoBehaviour:
   torgueMultiplier: 15
   normalTorgueMultiplier: 1
   boostingTorgueMultiplier: 2
-  jumpPower: 150
+  jumpPower: 20
   jumpTime: 0.15
+  jumpDampening: 0.2
   myLayerMask:
     serializedVersion: 2
     m_Bits: 0
