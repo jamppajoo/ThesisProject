@@ -52,8 +52,8 @@ public class Ball : MonoBehaviour
 
     public void Move(Vector2 moveDirection, bool jump)
     {
-        Vector2 moveForce = Vector2.right * moveDirection.x * movePower * torgueMultiplier;
-        Vector2 airForce = Vector2.right * moveDirection.x * airControl * torgueMultiplier;
+        Vector2 moveForce = Vector2.right * moveDirection.x * movePower * torgueMultiplier * Time.deltaTime;
+        Vector2 airForce = Vector2.right * moveDirection.x * airControl * torgueMultiplier * Time.deltaTime;
 
         groundHit = Physics2D.Raycast(transform.position, -Vector2.up, groundRayLength);
 

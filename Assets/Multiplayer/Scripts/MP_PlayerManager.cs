@@ -12,6 +12,7 @@ namespace MultiPlayer
         public static GameObject LocalPlayerInstance;
         private MP_BallMovement ballMovement;
         private MP_BallChangeColor ballChangeColor;
+        private MP_BallSpeedBoost ballSpeedBoost;
 
         private void Awake()
         {
@@ -19,6 +20,11 @@ namespace MultiPlayer
 
             if (gameObject.HasComponent<MP_BallChangeColor>())
                 ballChangeColor = GetComponent<MP_BallChangeColor>();
+
+            if (gameObject.HasComponent<MP_BallSpeedBoost>())
+            {
+                ballSpeedBoost = GetComponent<MP_BallSpeedBoost>();
+            }
 
             if (photonView.IsMine)
             {
@@ -34,6 +40,8 @@ namespace MultiPlayer
                 ballMovement.ProcessInputs();
                 if (ballChangeColor != null)
                     ballChangeColor.ProcessInputs();
+                if (ballSpeedBoost != null)
+                    ballSpeedBoost.ProcessInputs();
             }
 
         }

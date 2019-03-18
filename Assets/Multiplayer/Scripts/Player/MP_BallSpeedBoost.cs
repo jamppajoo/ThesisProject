@@ -34,8 +34,13 @@ namespace MultiPlayer
             playerUIManager.SetSpeedBoostMaxValue(maxSpeedBoostAmount);
         }
 
+        public void ProcessInputs()
+        {
+            bool speedBoost = Input.GetButton("MP_Boost");
+            SpeedBoostActivated(speedBoost);
+        }
 
-        public void SpeedBoostActivated(bool activated)
+        private void SpeedBoostActivated(bool activated)
         {
 
             if (speedBoostAmount > 0 && activated)

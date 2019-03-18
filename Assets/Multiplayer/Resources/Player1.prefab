@@ -255,8 +255,8 @@ MonoBehaviour:
   normalVelocity: 12
   boostedVelocity: 15
   torgueMultiplier: 15
-  normalTorgueMultiplier: 1
-  boostingTorgueMultiplier: 2
+  normalTorgueMultiplier: 15
+  boostingTorgueMultiplier: 25
   jumpPower: 20
   jumpTime: 0.15
   jumpDampening: 0.2

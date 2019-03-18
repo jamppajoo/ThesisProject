@@ -149,14 +149,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: P1
-  movePower: 10
-  airControl: 2
+  movePower: 150
+  airControl: 25
   currentMaxVelocity: 12
   normalVelocity: 12
   boostedVelocity: 15
-  torgueMultiplier: 1
-  normalTorgueMultiplier: 1
-  boostingTorgueMultiplier: 2
+  torgueMultiplier: 15
+  normalTorgueMultiplier: 15
+  boostingTorgueMultiplier: 25
   jumpPower: 20
   myLayerMask:
     serializedVersion: 2

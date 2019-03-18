@@ -9,6 +9,7 @@ public class TODO : MonoBehaviour
      * Comment code
      * Mby some refactoring
      * Keyboard & Mouse controls
+     * Make nested prefabs out of all the possible things.
      */
 
     /* Level 
@@ -27,8 +28,6 @@ public class TODO : MonoBehaviour
 
     /* MP
      * Smooth player movement
-     * Player color choosing
-     * Player speedboost
      * Working pause menu
      * Player spawning points
      * Repositing camera when player leaves
