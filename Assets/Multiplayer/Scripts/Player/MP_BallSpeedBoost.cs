@@ -11,7 +11,7 @@ namespace MultiPlayer
         private string playerID;
 
 
-        private PlayerUIManager playerUIManager;
+        private MP_PlayerUIManager playerUIManager;
 
         private Image fillBar;
 
@@ -23,8 +23,8 @@ namespace MultiPlayer
 
         private void Awake()
         {
+            playerUIManager = GameObject.Find("PlayerUIArea").GetComponent<MP_PlayerUIManager>();
             playerID = GetComponent<MP_Ball>().playerID;
-            playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>();
 
             ball = GetComponent<MP_Ball>();
             ballMovement = GetComponent<MP_BallMovement>();

@@ -11,7 +11,7 @@ namespace MultiPlayer
     {
         private LevelManager levelManager;
 
-        private PlayerUIManager playerUIManager;
+        private MP_PlayerUIManager playerUIManager;
 
         private string playerID;
 
@@ -38,7 +38,8 @@ namespace MultiPlayer
             ball = GetComponent<MP_Ball>();
             triggerCollider = gameObject.GetComponentInChildren<CircleCollider2D>();
 
-            playerUIManager = GameObject.Find(playerID + "UIArea").GetComponent<PlayerUIManager>();
+            playerUIManager = GameObject.Find("PlayerUIArea").GetComponent<MP_PlayerUIManager>();
+
         }
 
         void Start()
@@ -89,18 +90,22 @@ namespace MultiPlayer
                     if (verPos > horPos && verPos > horPos * -1)
                     {
                         RedChoosed();
+                        ChangeBarColor(levelManager.colorRed);
                     }
                     else if (verPos < horPos && verPos < horPos * -1)
                     {
                         YellowChoosed();
+                        ChangeBarColor(levelManager.colorYellow);
                     }
                     else if (horPos > verPos && horPos > verPos * -1)
                     {
                         GreenChoosed();
+                        ChangeBarColor(levelManager.colorGreen);
                     }
                     else if (horPos < verPos && horPos < verPos * -1)
                     {
                         BlueChoosed();
+                        ChangeBarColor(levelManager.colorBlue);
                     }
 
                 }
@@ -121,7 +126,6 @@ namespace MultiPlayer
         private void DefaultChoosed()
         {
             playerMaterial.color = Color.white;
-            ballSpeedBoost.changeBarColor(Color.white);
             gameObject.layer = LayerMask.NameToLayer("Default");
             ball.myLayerMask = gameObject.layer;
             networkColorName = "Default";
@@ -130,7 +134,6 @@ namespace MultiPlayer
         private void RedChoosed()
         {
             playerMaterial.color = levelManager.colorRed;
-            ballSpeedBoost.changeBarColor(levelManager.colorRed);
             gameObject.layer = LayerMask.NameToLayer("RedObject");
             ball.myLayerMask = gameObject.layer;
             networkColorName = "Red";
@@ -138,7 +141,6 @@ namespace MultiPlayer
         private void GreenChoosed()
         {
             playerMaterial.color = levelManager.colorGreen;
-            ballSpeedBoost.changeBarColor(levelManager.colorGreen);
             gameObject.layer = LayerMask.NameToLayer("GreenObject");
             ball.myLayerMask = gameObject.layer;
             networkColorName = "Green";
@@ -146,7 +148,6 @@ namespace MultiPlayer
         private void YellowChoosed()
         {
             playerMaterial.color = levelManager.colorYellow;
-            ballSpeedBoost.changeBarColor(levelManager.colorYellow);
             gameObject.layer = LayerMask.NameToLayer("YellowObject");
             ball.myLayerMask = gameObject.layer;
             networkColorName = "Yellow";
@@ -154,10 +155,14 @@ namespace MultiPlayer
         private void BlueChoosed()
         {
             playerMaterial.color = levelManager.colorBlue;
-            ballSpeedBoost.changeBarColor(levelManager.colorBlue);
             gameObject.layer = LayerMask.NameToLayer("BlueObject");
             ball.myLayerMask = gameObject.layer;
             networkColorName = "Blue";
+        }
+        private void ChangeBarColor(Color color)
+        {
+
+            ballSpeedBoost.changeBarColor(color);
         }
         private void NetworkChangeColor(string color)
         {

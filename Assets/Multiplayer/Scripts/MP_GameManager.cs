@@ -11,31 +11,43 @@ namespace MultiPlayer
     {
         static public MP_GameManager Instance;
 
-        private GameObject instance;
+        private GameObject playerPrefabInstance;
+        //private GameObject playerUIPrefabInstance;
 
         [SerializeField]
         private GameObject playerPrefab;
+        [SerializeField]
+        //private GameObject playerUIPrefab;
 
         private void Start()
         {
             Instance = this;
 
-            if(!PhotonNetwork.IsConnected)
+            if (!PhotonNetwork.IsConnected)
             {
                 SceneManager.LoadScene(0);
                 return;
             }
 
-            if(playerPrefab == null)
+            if (playerPrefab == null)
             {
                 Debug.LogError("Missing playerPrefab instance");
                 return;
             }
-            
-            if(MP_PlayerManager.LocalPlayerInstance == null)
+            //if (playerUIPrefab == null)
+            //{
+            //    Debug.LogError("Missing playerUIPrefab instance");
+            //    return;
+            //}
+
+            if (MP_PlayerManager.LocalPlayerInstance == null)
             {
-                instance = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity, 0);
+                playerPrefabInstance = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity, 0);
             }
+            //if (MP_PlayerUIManager.LocalPlayerUIInstance == null)
+            //{
+            //    playerUIPrefabInstance = PhotonNetwork.Instantiate(playerUIPrefab.name, playerUIPrefab.transform.position, Quaternion.identity, 0);
+            //}
         }
 
         void Update()
