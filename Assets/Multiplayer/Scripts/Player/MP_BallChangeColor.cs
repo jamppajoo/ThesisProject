@@ -38,13 +38,13 @@ namespace MultiPlayer
             ball = GetComponent<MP_Ball>();
             triggerCollider = gameObject.GetComponentInChildren<CircleCollider2D>();
 
+            playerMaterial = gameObject.GetComponent<Renderer>().material;
             playerUIManager = GameObject.Find("PlayerUIArea").GetComponent<MP_PlayerUIManager>();
 
         }
 
         void Start()
         {
-            playerMaterial = gameObject.GetComponent<Renderer>().material;
         }
 
 
