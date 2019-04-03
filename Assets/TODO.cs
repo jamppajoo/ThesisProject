@@ -31,7 +31,7 @@ public class TODO : MonoBehaviour
      * Working pause menu
      * Player spawning points
      * Repositing camera when player leaves
-     * Getting speedboost blocks
+     * Speedboost block deactivated, causes bugs
      * 
      * MP Menu
      * Combine with local multiplayer menu
