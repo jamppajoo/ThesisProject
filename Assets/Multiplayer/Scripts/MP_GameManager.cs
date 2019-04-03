@@ -34,7 +34,7 @@ namespace MultiPlayer
 
             if (MP_PlayerManager.LocalPlayerInstance == null)
             {
-                playerPrefabInstance = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity, 0);
+                playerPrefabInstance = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(-5, 0, 0), Quaternion.identity, 0);
             }
         }
 

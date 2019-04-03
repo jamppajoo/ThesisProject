@@ -13,13 +13,18 @@ namespace MultiPlayer
         [HideInInspector]
         public LayerMask myLayerMask;
 
+        private MP_CameraMovement camera;
+
         private void Awake()
         {
             myLayerMask = gameObject.layer;
+            camera = Camera.main.GetComponent<MP_CameraMovement>();
+
+
         }
         private void Start()
         {
-            Camera.main.GetComponent<MP_CameraMovement>().AddTarget(gameObject.transform);
+            camera.AddTarget(gameObject.transform);
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -27,7 +32,7 @@ namespace MultiPlayer
             Debug.Log("PlayerLeftRoom1");
             if (photonView.IsMine)
             {
-                Debug.Log("PlayerLeftRoom2");
+                camera.RemoveTarget(gameObject.transform);
 
             }
         }
