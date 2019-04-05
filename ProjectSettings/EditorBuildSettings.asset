@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Multiplayer/Scenes/MP_Launcher.unity
-    guid: 70a479d500e8a5a48befbf14b3e9f59e
+    path: Assets/Multiplayer/Scenes/MP_Lobby.unity
+    guid: d52f42d6eadce6c4aa9f41558fb56944
   - enabled: 1
     path: Assets/Multiplayer/Scenes/MP_Level1.unity
     guid: 1512eb0afce26954c984661707c00891

@@ -27,7 +27,6 @@ public class TODO : MonoBehaviour
      */
 
     /* MP
-     * Smooth player movement
      * Working pause menu
      * Player spawning points
      * Repositing camera when player leaves

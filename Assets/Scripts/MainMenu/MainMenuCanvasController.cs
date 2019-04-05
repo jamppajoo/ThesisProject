@@ -13,6 +13,7 @@ public class MainMenuCanvasController : MonoBehaviour {
     private Vector3 playButtonOriginalPosition;
     private Vector3 settingsButtonOriginalPosition;
 
+
     private void Awake()
     {
         playerSelection = gameObject.transform.Find("PlayerSelection").gameObject;

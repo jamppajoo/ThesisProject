@@ -8,9 +8,6 @@ namespace MultiPlayer
 {
     public class MP_Launcher : MonoBehaviourPunCallbacks
     {
-
-        [SerializeField]
-        private GameObject controlPanel;
         private byte maxPlayersPerRoom = 4;
 
         private bool isConnecting;
@@ -24,12 +21,9 @@ namespace MultiPlayer
 
         public void Connect()
         {
-
             isConnecting = true;
 
-            controlPanel.SetActive(false);
-
-            if(PhotonNetwork.IsConnected)
+            if (PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.JoinRandomRoom();
             }
@@ -43,26 +37,23 @@ namespace MultiPlayer
 
         public override void OnConnectedToMaster()
         {
-            if(isConnecting)
+            if (isConnecting)
             {
                 PhotonNetwork.JoinRandomRoom();
+                Debug.Log("Joined Room: " + PhotonNetwork.CurrentRoom);
+                Debug.Log("Other players count: " + PhotonNetwork.PlayerListOthers.Length);
+
             }
         }
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+            Debug.Log("Made room");
+            PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom, PublishUserId = true });
         }
         public override void OnDisconnected(DisconnectCause cause)
         {
             isConnecting = false;
-            controlPanel.SetActive(true);
-        }
-        public override void OnJoinedRoom()
-        {
-            if(PhotonNetwork.CurrentRoom.PlayerCount == 1)
-            {
-                PhotonNetwork.LoadLevel(1);
-            }
+            Debug.Log("Disconnected from Room " + PhotonNetwork.CurrentRoom);
         }
     }
 }

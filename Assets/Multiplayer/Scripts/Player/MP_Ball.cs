@@ -29,7 +29,6 @@ namespace MultiPlayer
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
-            Debug.Log("PlayerLeftRoom1");
             if (photonView.IsMine)
             {
                 camera.RemoveTarget(gameObject.transform);

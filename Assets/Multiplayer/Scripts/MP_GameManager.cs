@@ -20,6 +20,9 @@ namespace MultiPlayer
         {
             Instance = this;
 
+            PhotonNetwork.SendRate = 32;
+            PhotonNetwork.SerializationRate = 24;
+
             if (!PhotonNetwork.IsConnected)
             {
                 SceneManager.LoadScene(0);
